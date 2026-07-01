@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">멋사 방학세션 #3 - 카카오로그인 테스트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=SUIT:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body class="result-body">
+<main class="result-shell">
+    <section class="result-card">
+        <p class="hero-eyebrow">KAKAO AUTH SUCCESS</p>
+        <h1 th:text="${pageTitle}">멋사 방학세션 #3 - 카카오로그인 테스트</h1>
+        <p class="status-message" th:text="${welcomeMessage}">카카오 계정으로 로그인되었습니다.</p>
+        <p class="token-message" th:text="${tokenModeMessage}">JWT Access Token과 Refresh Token이 HttpOnly 쿠키로 발급되었습니다.</p>
+
+        <div class="profile-panel">
+            <img class="profile-image" th:if="${user.profileImage != null and !user.profileImage.isBlank()}" th:src="${user.profileImage}" alt="프로필 이미지">
+            <div class="profile-fallback" th:if="${user.profileImage == null or user.profileImage.isBlank()}" th:text="${#strings.substring(user.nickname, 0, 1)}">U</div>
+
+            <div class="profile-meta">
+                <h2 th:text="${user.nickname}">사용자</h2>
+                <p th:text="${user.email != null and !user.email.isBlank() ? user.email : '이메일 제공 미동의'}">email@example.com</p>
+                <ul class="profile-facts">
+                    <li><strong>회원번호</strong><span th:text="${user.id}">1</span></li>
+                    <li><strong>소셜타입</strong><span th:text="${user.provider}">kakao</span></li>
+                    <li><strong>최근 로그인</strong><span th:text="${#temporals.format(user.lastLoginAt, 'yyyy-MM-dd HH:mm:ss')}">2026-07-01 12:00:00</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="action-row">
+            <a class="secondary-button" th:href="@{/api/me}">JSON 보기</a>
+            <form th:action="@{/api/auth/refresh}" method="post">
+                <button class="secondary-button" type="submit">토큰 재발급</button>
+            </form>
+            <a class="secondary-button" th:href="@{/}">처음으로</a>
+            <form th:action="@{/logout}" method="post">
+                <button class="logout-button" type="submit">로그아웃</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>

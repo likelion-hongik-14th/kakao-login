@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멋사 방학세션 #3 - 카카오로그인 테스트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=SUIT:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body class="landing-body">
+<main class="hero-shell">
+    <section class="hero-card">
+        <p class="hero-eyebrow">LIKELION WINTER SESSION</p>
+        <h1>멋사 방학세션 #3<br>카카오로그인 테스트</h1>
+        <div class="notice-stack" th:if="${error != null or logout != null}">
+            <p class="notice error" th:if="${error != null}">
+                로그인에 실패했습니다.
+                <span th:if="${message != null}" th:text="${message}">오류 메시지</span>
+            </p>
+            <p class="notice success" th:if="${logout != null}">로그아웃이 완료되었습니다.</p>
+        </div>
+        <p class="hero-copy">
+            버튼 한 번으로 카카오 계정 로그인, 첫 회원가입 처리, 그리고 JWT 발급까지 한 번에 테스트할 수 있어요.
+        </p>
+        <a class="kakao-button" th:href="@{/oauth2/authorization/kakao}">
+            <span class="kakao-icon">K</span>
+            카카오로 로그인하기
+        </a>
+        <p class="hero-caption">처음 접속하면 회원가입, 이미 가입된 계정이면 로그인되며 Access Token과 Refresh Token 쿠키가 함께 발급됩니다.</p>
+    </section>
+</main>
+</body>
+</html>
